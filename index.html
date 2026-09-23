@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Real World Meditation | Course &amp; Practice Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --charcoal:#3D3D3D; --stone:#ACACAC; --rust:#9E5230; --teal:#3F7775;
+  --bg:#EFEFEC; --surface:#FFFFFF; --surface-2:#F7F7F5; --ink:#2E2E2E; --muted:#6B6B68;
+  --line:#DCDCD7; --user:#3D3D3D; --user-ink:#F4F4F2; --focus:#9E5230;
+  --sans:"Jost",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#242424; --surface:#2F2F2F; --surface-2:#292929; --ink:#ECECE8; --muted:#A6A6A1;
+    --line:#434341; --user:#5A5A58; --user-ink:#F4F4F2; --rust:#D0845F; --teal:#79B3B0; --charcoal:#3D3D3D;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#242424; --surface:#2F2F2F; --surface-2:#292929; --ink:#ECECE8; --muted:#A6A6A1;
+  --line:#434341; --user:#5A5A58; --user-ink:#F4F4F2; --rust:#D0845F; --teal:#79B3B0;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+img{max-width:100%}
+
+.app{height:100%;display:grid;grid-template-rows:auto auto 1fr}
+
+/* Header */
+.top{background:var(--charcoal);color:#EDEDEA;display:flex;align-items:center;gap:14px;padding:10px 20px}
+.logo{width:46px;height:38px;border-radius:6px;display:block;flex:none}
+.brand{display:flex;flex-direction:column;line-height:1.15}
+.brand b{font-weight:500;font-size:17px;letter-spacing:.01em}
+.brand span{font-size:13px;color:#BDBDB9;font-weight:300}
+.top .spacer{flex:1}
+.top a.site{font-size:14px;color:#D8D8D4;text-decoration:none;border-bottom:1px solid #777;padding-bottom:1px}
+.top a.site:hover{color:#fff;border-color:#fff}
+.restart{white-space:nowrap;background:none;border:1px solid #6B6B69;color:#D8D8D4;border-radius:20px;padding:4px 12px;font-size:13px}
+.restart:hover{border-color:#bbb;color:#fff}
+
+/* Journey */
+.journey{position:relative;background:var(--surface);border-bottom:1px solid var(--line);overflow-x:auto}
+.journey ol{list-style:none;margin:0 auto;padding:10px 20px;display:flex;gap:6px;min-width:max-content;max-width:1280px}
+.journey li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);padding-right:6px}
+.journey li:not(:last-child)::after{content:"";width:22px;height:1px;background:var(--line);margin-left:4px}
+.journey .dot{width:20px;height:20px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;flex:none}
+.journey li.done{color:var(--ink)}
+.journey li.done .dot{background:var(--charcoal);border-color:var(--charcoal);color:#fff}
+.journey li.now{color:var(--ink);font-weight:500}
+.journey li.now .dot{border-color:var(--rust);color:var(--rust);box-shadow:0 0 0 3px color-mix(in srgb,var(--rust) 18%,transparent)}
+
+/* Layout */
+.main{min-height:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);max-width:1280px;width:100%;margin:0 auto}
+.tabs{display:none}
+.chat{min-height:0;display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--surface-2)}
+.log{flex:1;overflow-y:auto;padding:28px 28px 12px;display:flex;flex-direction:column;gap:18px}
+.msg{max-width:88%}
+.msg.ai{align-self:flex-start;font-family:var(--serif);font-size:17px;line-height:1.6}
+.msg.ai p{margin:0 0 .7em}
+.msg.ai p:last-child{margin-bottom:0}
+.msg.ai ul{margin:.2em 0 .8em;padding-left:1.1em}
+.msg.ai li{margin:.2em 0}
+.msg.ai .who{font-family:var(--sans);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.msg.ai .who i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--muted);display:inline-block}
+.msg.user{align-self:flex-end;background:var(--user);color:var(--user-ink);padding:10px 15px;border-radius:16px 16px 4px 16px;font-size:15.5px;white-space:pre-wrap}
+.msg.err{align-self:flex-start;font-size:14px;color:var(--rust);border-left:2px solid var(--rust);padding-left:10px}
+
+.starters{display:flex;flex-direction:column;gap:8px;align-items:flex-start;margin-top:4px}
+.starters small{color:var(--muted);font-size:13px}
+.chip{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:18px;padding:7px 14px;font-size:14px;text-align:left;line-height:1.35;max-width:100%}
+.chip:hover{border-color:var(--charcoal)}
+.suggest{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Breathing loader: echoes the RWM circle */
+.breath{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:14px}
+.ring{width:34px;height:34px;position:relative;flex:none}
+.ring::before,.ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--stone)}
+.ring::after{inset:9px;background:var(--stone);opacity:.5;border:none;animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.55)}50%{transform:scale(1.55)}}
+.breath .lbl{min-width:9em}
+@media (prefers-reduced-motion:reduce){.ring::after{animation:none}}
+
+.composer{border-top:1px solid var(--line);background:var(--surface);padding:12px 16px}
+.composer .box{display:flex;gap:10px;align-items:flex-end;border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 14px;background:var(--surface-2)}
+.composer .box:focus-within{border-color:var(--charcoal)}
+.composer textarea{flex:1;border:none;background:none;resize:none;font:inherit;color:var(--ink);font-size:15.5px;max-height:160px;padding:6px 0;outline:none}
+.send{background:var(--charcoal);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:14px;font-weight:500}
+:root[data-theme="dark"] .send{background:#5A5A58}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .send{background:#5A5A58}}
+.send:disabled{opacity:.45;cursor:default}
+.stop{background:none;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:8px 12px;font-size:13px}
+.fine{font-size:12px;color:var(--muted);margin:8px 2px 0}
+
+/* Path panel */
+.path{min-height:0;overflow-y:auto;padding:26px 26px 40px;background:var(--bg)}
+.path h2{font-weight:400;font-size:24px;margin:0 0 4px;letter-spacing:-.005em}
+.path .lede{color:var(--muted);margin:0 0 22px;font-size:15px;max-width:44ch}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);font-size:15px}
+.empty ol{margin:10px 0 0;padding-left:1.2em}
+.empty li{margin:4px 0}
+
+.section{margin-bottom:26px}
+.section > h3{font-size:14px;font-weight:500;color:var(--muted);margin:0 0 10px;letter-spacing:.01em}
+
+.understood{display:flex;flex-wrap:wrap;gap:8px}
+.understood div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:14px;max-width:100%}
+.understood small{display:block;font-size:11.5px;color:var(--muted)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.rec-head{padding:20px 22px 16px;border-bottom:1px solid var(--line);position:relative}
+.rec-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rust)}
+.rec-kind{font-size:13px;color:var(--rust);font-weight:500}
+.rec-head h4{font-size:22px;font-weight:500;margin:4px 0 6px;line-height:1.25}
+.rec-head p{margin:0;color:var(--muted);font-size:15px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-bottom:1px solid var(--line)}
+.facts div{padding:12px 22px;border-top:1px solid var(--line);font-size:14.5px}
+.facts div:nth-child(-n+2){border-top:none}
+.facts div:nth-child(odd){border-right:1px solid var(--line)}
+.facts dt{font-size:12px;color:var(--muted);margin-bottom:2px}
+.facts dd{margin:0}
+.facts .wide{grid-column:1/-1;border-right:none!important}
+.offers{padding:16px 22px;font-size:15px;border-bottom:1px solid var(--line)}
+.offers ul{margin:6px 0 0;padding-left:1.1em}
+.why{padding:18px 22px;background:var(--surface-2)}
+.why h5{margin:0 0 8px;font-size:15px;font-weight:500}
+.why ul{margin:0;padding:0;list-style:none}
+.why li{padding:6px 0 6px 22px;position:relative;font-family:var(--serif);font-size:16px;line-height:1.5}
+.why li::before{content:"";position:absolute;left:2px;top:.8em;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--teal)}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;padding:16px 22px}
+.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border-radius:10px;padding:10px 16px;font-size:14.5px;font-weight:500;border:1px solid transparent}
+.btn.primary{background:var(--rust);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{border-color:var(--line);color:var(--ink);background:var(--surface)}
+.btn.ghost:hover{border-color:var(--charcoal)}
+.alts{margin-top:12px;display:grid;gap:8px}
+.alt{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.alt b{font-weight:500;font-size:15px}
+.alt span{font-size:13.5px;color:var(--muted);display:block}
+.alt a{font-size:14px;color:var(--rust);white-space:nowrap}
+
+.plan-head{padding:20px 22px 14px;border-bottom:1px solid var(--line);position:relative}
+.plan-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal)}
+.plan-head h4{margin:0 0 4px;font-size:22px;font-weight:500}
+.plan-head p{margin:0;color:var(--muted);font-size:15px}
+.rhythm{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.rhythm span{font-size:13px;border:1px solid var(--line);border-radius:14px;padding:3px 10px}
+.weeks{list-style:none;margin:0;padding:0}
+.week{padding:16px 22px 16px 60px;border-bottom:1px solid var(--line);position:relative}
+.week .n{position:absolute;left:20px;top:16px;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:500}
+.week h5{margin:0;font-size:16px;font-weight:500}
+.week .mins{font-size:13.5px;color:var(--teal);font-weight:500;margin:1px 0 6px}
+.week .focus{margin:0 0 8px;font-family:var(--serif);font-size:15.5px}
+.week ul{margin:0;padding:0;list-style:none}
+.week li{font-size:14.5px;margin:5px 0}
+.week li a{color:var(--ink);text-decoration-color:var(--stone);text-underline-offset:3px}
+.week li a:hover{text-decoration-color:var(--rust)}
+.week li em{font-style:normal;color:var(--muted);display:block;font-size:13.5px}
+.week .goal{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.tips{padding:14px 22px;font-size:14.5px;background:var(--surface-2)}
+.tips h5{margin:0 0 6px;font-size:14px;font-weight:500}
+.tips ul{margin:0;padding-left:1.1em}
+.tips li{margin:3px 0}
+.plan-actions{display:flex;flex-wrap:wrap;gap:10px;padding:14px 22px}
+
+.next{background:var(--charcoal);color:#EDEDEA;border-radius:14px;padding:22px}
+.next p{margin:0 0 14px;font-family:var(--serif);font-size:17px;line-height:1.5}
+.next p b{font-family:var(--sans);font-weight:500}
+.next .btn.ghost{background:transparent;color:#EDEDEA;border-color:#6A6A68}
+.next .btn.ghost:hover{border-color:#ddd}
+.next small{display:block;margin-top:12px;color:#BDBDB9;font-size:13px}
+.source{font-size:12.5px;color:var(--muted);margin-top:22px;line-height:1.5}
+.source a{color:var(--muted)}
+.new{animation:settle .5s ease-out}
+@keyframes settle{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.new{animation:none}}
+
+.notice{margin:12px 28px 0;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font-size:14px;color:var(--muted)}
+
+/* Mobile */
+@media (max-width:860px){
+  .top{padding:8px 14px}
+  .top a.site{display:none}
+  .brand b{font-size:15px}
+  .brand span{display:none}
+  .main{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--line)}
+  .tabs button{flex:1;background:none;border:none;padding:11px 8px;font-size:14.5px;color:var(--muted);border-bottom:2px solid transparent;position:relative}
+  .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--rust);font-weight:500}
+  .tabs .badge{display:none;width:7px;height:7px;border-radius:50%;background:var(--rust);position:absolute;top:12px;margin-left:4px}
+  .tabs .badge.on{display:inline-block}
+  .chat{border-right:none}
+  .main[data-view="chat"] .path{display:none}
+  .main[data-view="path"] .chat{display:none}
+  .log{padding:20px 16px 10px}
+  .msg{max-width:94%}
+  .path{padding:20px 16px 36px}
+  .facts{grid-template-columns:1fr}
+  .facts div{border-right:none!important;border-top:1px solid var(--line)!important}
+  .facts div:first-child{border-top:none!important}
+  .notice{margin:10px 16px 0}
+}
+.engine{font-size:12px;color:#CFCFCB;border:1px solid #5E5E5C;border-radius:12px;padding:2px 9px;white-space:nowrap}
+.why .honest{margin:10px 0 0;font-size:14px;color:var(--muted)}
+@media (max-width:860px){.engine{display:none}}
+@media print{
+  .top,.journey,.tabs,.chat,.plan-actions,.ctas,.next,.source,.alts{display:none!important}
+  .main{display:block}.path{overflow:visible;padding:0;background:#fff}
+  .main[data-view="chat"] .path{display:block!important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <img class="logo" alt="Real World Meditation" src="data:image/png;base64,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">
+    <div class="brand"><b>Real World Meditation</b><span>Course &amp; practice guide</span></div>
+    <div class="spacer"></div>
+    <a class="site" href="https://realworldmeditation.org.uk/" target="_blank" rel="noopener">Visit the website</a>
+    <span class="engine" id="engine">Built-in engine</span>
+    <button class="restart" id="restart" type="button">Start over</button>
+  </header>
+
+  <nav class="journey" aria-label="Your journey">
+    <ol id="journey"></ol>
+  </nav>
+
+  <div class="main" id="main" data-view="chat">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-chat" aria-selected="true" type="button">Conversation</button>
+      <button role="tab" id="tab-path" aria-selected="false" type="button">Your path<span class="badge" id="badge"></span></button>
+    </div>
+
+    <section class="chat" aria-label="Conversation">
+            <div class="log" id="log" aria-live="polite"></div>
+      <form class="composer" id="form">
+        <div class="box">
+          <textarea id="input" rows="1" placeholder="Tell me what you're looking for…" aria-label="Your message"></textarea>
+          <button class="stop" id="stop" type="button" hidden>Stop</button>
+          <button class="send" id="send" type="submit">Send</button>
+        </div>
+        <p class="fine">General meditation guidance only, not medical advice. Course details come from realworldmeditation.org.uk.</p>
+      </form>
+    </section>
+
+    <aside class="path" id="path" aria-label="Your path"></aside>
+  </div>
+</div>
+
+<script>
+  /* Optional settings. engine: "auto" uses the LLM when server.js has one configured,
+     otherwise the built-in engine. Set engine: "local" to always use the built-in engine. */
+  window.RWM_CONFIG = { engine: "local", apiBase: "" };
+</script>
+<script>
+/* Real World Meditation: shared catalogue + LLM prompt.
+   Loaded by the browser (window.RWM) and by server.js (require).
+   Content captured from https://realworldmeditation.org.uk/ :
+   this file is the single source of truth for offerings, dates, prices and links. */
+(function(root){
+const SITE = "https://realworldmeditation.org.uk";
+const CATALOGUE = {
+  "intro-winter-2025": {
+    kind: "Course",
+    name: "Introduction to Meditation: 8 Weeks (Winter 2025 recordings)",
+    summary: "RWM's main course. Eight weekly classes plus fifty-six short daily meditations, exploring several types of meditation so you can find the one that works for you.",
+    offers: [
+      "Eight recorded weekly classes on Zoom, roughly 90 minutes each, mixing practice with instruction",
+      "Fifty-six daily guided meditations, typically 10 to 15 minutes",
+      "Weekly themes: You CAN Meditate, Building Blocks, Why Meditate?, See Hear Feel, Mantras, Loving Kindness, Compassion, Looking Back and Forwards"
+    ],
+    suitable: "Complete beginners and anyone who wants to learn properly, in detail, rather than just being told to watch the breath",
+    duration: "8 weeks (at your own pace)",
+    format: "Online, on demand: recorded video classes and daily audio/video meditations",
+    dates: "Ran live 8 Jan to 26 Feb 2025 (Wednesdays, 7pm to 8:30pm). Now available as recordings.",
+    price: "The live series was free. Recordings are freely available on the website.",
+    ctas: [
+      {label:"View course", url: SITE+"/courses/winter-2025/", primary:true},
+      {label:"Start Day 1 meditations", url: SITE+"/courses/winter-2025/daily/"}
+    ]
+  },
+  "intro-8wk-audio": {
+    kind: "Course",
+    name: "8 Week Introduction to Meditation: Audio",
+    summary: "The compact version of RWM's introduction, recorded as audio in 2023. Listen anywhere.",
+    offers: [
+      "Eight audio classes: You CAN Meditate, Being Present, See Hear Feel, Emotional Dexterity, Mantras, Loving Kindness, Chakra Meditation, and a culminating meditation combining everything",
+      "Covers mindfulness, mantra, loving kindness and more"
+    ],
+    suitable: "Beginners who prefer listening (commuting, walking) or who don't want video",
+    duration: "8 audio sessions",
+    format: "Online audio recordings",
+    dates: "Recorded 2023. Available any time.",
+    price: "Freely available on the website.",
+    ctas: [{label:"Listen to the recordings", url: SITE+"/courses/8weekaudio/", primary:true}]
+  },
+  "intro-12wk-video": {
+    kind: "Course",
+    name: "12 Week Introduction to Meditation: Video",
+    summary: "The fuller, three-month version of the introduction, delivered live on YouTube during the 2020 lockdown, with daily meditations.",
+    offers: ["Twelve video classes", "Daily recorded meditations", "Explores three types of meditation in more depth than the 8-week version"],
+    suitable: "People who want the most thorough, slower-paced introduction",
+    duration: "12 weeks",
+    format: "Online video recordings",
+    dates: "Recorded 2020. Available any time.",
+    price: "No price listed on the website.",
+    ctas: [{label:"View 12 week series", url: "https://realworldmeditation.org/courses/itm/", primary:true}]
+  },
+  "compassion-5wk": {
+    kind: "Course",
+    name: "5 Week Compassion Experiment",
+    summary: "A month-long challenge dedicated to meditations of the heart. Recorded in person at St Peter's Episcopal Church, Morristown.",
+    offers: ["Five recorded video classes", "A structured month of loving kindness and compassion practice"],
+    suitable: "People with some meditation experience who want a challenge, or who are drawn to heart-centred practice",
+    duration: "5 weeks",
+    format: "Online video recordings",
+    dates: "Recorded earlier (2018/2019). Available any time.",
+    price: "No price listed on the website.",
+    ctas: [{label:"View the classes", url: SITE+"/courses/5WeekCompassion", primary:true}]
+  },
+  "edinburgh-in-person": {
+    kind: "In-person classes",
+    name: "Meditation Edinburgh: In-Person Classes",
+    summary: "Since 2023 RWM has offered free and low-cost in-person classes, hosted at the Eric Liddell Community Centre in Edinburgh and the Lamp of Lothian Trust in Haddington.",
+    offers: ["Free and low-cost group classes", "Taught in person in Edinburgh and Haddington"],
+    suitable: "People in or near Edinburgh / East Lothian who want to learn in a group, in person",
+    duration: "Varies by series",
+    format: "In person: Edinburgh and Haddington",
+    dates: "No in-person dates are currently scheduled. RWM has said it hopes to run more in-person classes; sign up to be notified first.",
+    price: "Previous series were free or low-cost.",
+    ctas: [
+      {label:"View Edinburgh classes", url: SITE+"/meditation-edinburgh/", primary:true},
+      {label:"Enquire", url: SITE+"/contact-us/"}
+    ]
+  }
+};
+
+/* Practice resources used inside personalised plans */
+const RESOURCES = {
+  "breathe-to-relax": {title:"Breathe to Relax and Release (4 min)", url: SITE+"/meditations/", note:"Short breathing meditation for tension and overwhelm"},
+  "start-here": {title:"Start Here: 7 steps", url: SITE+"/start-here/", note:"Seven simple steps to begin a practice"},
+  "you-can-do-this": {title:"Article: You Can Do This", url: SITE+"/you-can-do-this/", note:"For anyone who thinks they can't meditate"},
+  "why-meditate": {title:"Why Meditate?", url: SITE+"/why/", note:"How meditation changes your relationship with your mind"},
+  "daily-meditations": {title:"Winter 2025 daily meditations", url: SITE+"/courses/winter-2025/daily/", note:"56 guided sessions, 10 to 15 min"},
+  "meditations-library": {title:"Meditations library", url: SITE+"/meditations/", note:"Latest guided meditations"},
+  "w25-week-1": {title:"Week 1 class: You CAN Meditate", url: SITE+"/courses/winter-2025/week-1/"},
+  "w25-week-2": {title:"Week 2 class: Building Blocks", url: SITE+"/courses/winter-2025/week-2/"},
+  "w25-week-3": {title:"Week 3 class: Why Meditate?", url: SITE+"/courses/winter-2025/week-3/"},
+  "w25-week-4": {title:"Week 4 class: See, Hear, Feel", url: SITE+"/courses/winter-2025/week-4/"},
+  "w25-week-5": {title:"Week 5 class: Mantras", url: SITE+"/courses/winter-2025/week-5/"},
+  "w25-week-6": {title:"Week 6 class: Loving Kindness", url: SITE+"/courses/winter-2025/week-6/"},
+  "w25-week-7": {title:"Week 7 class: Compassion", url: SITE+"/courses/winter-2025/week-7/"},
+  "audio-series": {title:"8 Week Introduction audio classes", url: SITE+"/courses/8weekaudio/"},
+  "compassion-classes": {title:"5 Week Compassion classes", url: SITE+"/courses/5WeekCompassion"}
+};
+
+const WELCOME = "Welcome to Real World Meditation. I can help you explore our courses and classes based on what you're looking for, your meditation experience and the kind of support you would find most useful.\n\nTell me a little about what you'd like to get from meditation.";
+const STARTERS = [
+  "I'm new to meditation, I'm feeling overwhelmed with work, I have 15 minutes in the evening and I'd like to attend something in person.",
+  "I've meditated on and off for years but can't make it stick. I'd like something more structured.",
+  "My mind never switches off at night. Can meditation help with that?"
+];
+const PROFILE_LABELS = {goal:"Goal", experience:"Experience", challenges:"Challenges", time_available:"Time available", time_of_day:"Time of day", format:"Format", location:"Location", other:"Also noted"};
+const STEPS = ["Discover","Tell us what you need","Understanding your goals","Recommendation","Why it fits","Your plan","Next step"];
+
+function catalogueForPrompt(){
+  const c = Object.entries(CATALOGUE).map(([id,o]) =>
+    `- id "${id}" | ${o.kind}: ${o.name}\n  About: ${o.summary}\n  Offers: ${o.offers.join("; ")}\n  Suitable for: ${o.suitable}\n  Duration: ${o.duration} | Format: ${o.format}\n  Dates: ${o.dates}\n  Price: ${o.price}`).join("\n");
+  const r = Object.entries(RESOURCES).map(([id,o]) => `- "${id}": ${o.title}${o.note?" ("+o.note+")":""}`).join("\n");
+  return {c, r};
+}
+
+function buildPrompt(state, todayOverride){
+  const {c, r} = catalogueForPrompt();
+  const today = todayOverride || new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  const transcript = (state.turns||[]).filter(t=>t.role==="user"||t.role==="assistant").slice(-24).map(t => (t.role==="user"?"VISITOR: ":"GUIDE: ")+t.content).join("\n\n");
+  const current = JSON.stringify({profile: state.profile, recommendation: state.rec ? {primary: state.rec.primary, alternatives: state.rec.alternatives} : null, plan_created: !!state.plan});
+  return `You are the online guide for Real World Meditation (RWM Education), a Scottish charity (SC052234) based in Edinburgh whose purpose is advancing education about meditation and mindfulness for health, happiness and self-healing.
+
+RWM'S PHILOSOPHY (use it to colour your voice, never quote at length):
+- "Real world meditation": practical, not religious, not dogmatic about any one style. The goal is to help each person find a practice they like, find easy enough, and can return to on their own.
+- You CAN meditate. Getting distracted is part of meditation; noticing and beginning again is the skill.
+- Consistency matters more than length: daily, or "everyday-ish", for ten days to two weeks is when people usually start to notice the effects.
+- Most people come for stress relief; that's welcome, and meditation can help much more of life too.
+
+TODAY: ${today}. The catalogue below was captured from realworldmeditation.org.uk. The most recent live series ran Jan to Feb 2025 and is now available as recordings. No upcoming dated events are listed. RWM does NOT list any residential retreats.
+
+CATALOGUE (the only offerings you may recommend):
+${c}
+
+PRACTICE RESOURCES (for plans, by id):
+${r}
+
+HOW TO CONVERSE
+- Warm, calm, human and plain-spoken, like a kind teacher, never clinical or salesy. British English.
+- This is NOT a questionnaire. Listen, reflect back briefly, and infer as much as you can from what the visitor says.
+- Ask at most ONE follow-up question per reply, and only when the answer would materially change the recommendation. If you can already recommend something useful, do so.
+- Recommend as early as sensibly possible, often after the visitor's first or second message.
+- Keep replies to roughly 60 to 150 words. Light formatting only: **bold** sparingly, short "- " bullet lists if genuinely helpful. Do NOT paste URLs; the page shows cards with links.
+- When you first make a recommendation, name it, give the heart of why in a sentence or two (full reasons go in "why"), and end with this offer in your own natural words: "Based on what you've shared, this looks like a good place to start. If you'd like, I can also create a simple meditation plan that you can follow alongside your journey."
+- If the visitor accepts, create the plan and briefly introduce it in "reply" (the plan card shows the detail). Then invite any questions.
+- After a plan exists, answer follow-ups naturally (evenings, missing a day, only 10 minutes, retreats, suitability). If their constraints change, update the plan or recommendation.
+- Towards a natural close, give a clear next step naming the recommended offering.
+
+GROUNDING, STRICTLY
+- Only recommend catalogue ids. Never invent courses, retreats, dates, prices, teachers, venues or availability.
+- If asked about retreats: say RWM doesn't currently list any retreats, then offer the closest real alternative (in-person Edinburgh classes when scheduled, or a structured course). Suggest they Enquire for anything else.
+- If the visitor wants in-person: be honest that no in-person dates are currently scheduled; the Edinburgh/Haddington classes have run before and they can register interest. Recommend starting now with an online course so they aren't left waiting. If location is unknown, you may ask whether Edinburgh or East Lothian is practical for them.
+- Say clearly when something is general meditation guidance rather than RWM course information (e.g. "As general guidance…").
+- Never state a price or date that isn't in the catalogue.
+
+WELLBEING
+- You do not diagnose or treat. If the visitor describes a serious mental or physical health concern (e.g. depression, panic attacks, trauma, self-harm, a medical condition), respond with warmth, be clear meditation is not a substitute for professional support, and encourage them to speak with their GP or a qualified professional. If they may be in immediate danger, urge them to contact emergency services now (in the UK: 999, NHS 111, or Samaritans on 116 123). Set "wellbeing_flag": true in that case.
+- If someone is in crisis, do not push a course.
+
+PLAN RULES (when creating or updating)
+- Default 14 days split into two weeks; use 7, 21 or 28 days only if asked or clearly better. 2 to 4 blocks.
+- Never exceed the visitor's stated available time. Start small (often 5 to 10 min) and build gently.
+- Respect their preferred time of day. Tie practices to RWM resource ids, especially the Winter 2025 daily meditations and weekly classes when the course is recommended.
+- Keep it realistic, kind and achievable. Include 2 to 4 short tips (e.g. what to do if you miss a day: just begin again).
+
+CURRENT STATE: ${current}
+
+CONVERSATION SO FAR:
+${transcript}
+
+Respond to the visitor's latest message. Reply with ONLY one JSON object, "reply" first, in exactly this shape:
+{
+  "reply": "your conversational message",
+  "profile": {"goal": string|null, "experience": string|null, "challenges": string|null, "time_available": string|null, "time_of_day": string|null, "format": string|null, "location": string|null, "other": string|null},
+  "recommendation": null OR {"primary": "catalogue id", "alternatives": ["up to 2 catalogue ids"], "headline": "one sentence on why this is the best fit for them", "why": ["3 to 4 short, specific reasons tied to what the visitor said"], "honesty_note": string|null},
+  "plan": null OR {"title": "e.g. Your 14-Day Evening Plan", "summary": "one sentence", "rhythm": ["2 to 3 short tags, e.g. 'Evenings', '10 to 15 min', 'Daily-ish'"], "blocks": [{"label": "e.g. Week 1: Days 1 to 7", "minutes": "e.g. 5 to 10 minutes a day", "focus": "one sentence", "practices": [{"resource": "resource id", "how": "short instruction"}], "goal": "one simple goal"}], "tips": ["short tips"]},
+  "suggestions": ["0 to 2 short things the visitor might naturally say next, max 8 words each, in their voice"],
+  "wellbeing_flag": false
+}
+Profile: short phrases (max 6 words), carry forward known values, null if unknown.
+recommendation: include when you are recommending or when it changes; otherwise null (the page keeps the last one). honesty_note: a short caveat if relevant (e.g. no in-person dates scheduled), else null.
+plan: include only when creating or updating the plan; otherwise null.`;
+}
+
+
+const api = {SITE, CATALOGUE, RESOURCES, WELCOME, STARTERS, PROFILE_LABELS, STEPS, buildPrompt};
+if (typeof module !== "undefined" && module.exports) module.exports = api; else root.RWM = api;
+})(typeof window !== "undefined" ? window : globalThis);
+
+</script>
+<script>
+/* Real World Meditation: built-in conversational engine.
+   Runs entirely in the browser. No API key, no network, no third-party AI.
+   Understands free-text messages, builds a visitor profile, recommends from the
+   RWM catalogue, creates a personalised plan and answers follow-up questions.
+   Returns the same result shape as the optional LLM engine. */
+(function (root) {
+  const RWM = root.RWM || (typeof require !== "undefined" ? require("./catalogue.js") : null);
+  const { CATALOGUE } = RWM;
+
+  const WORDNUM = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, twelve: 12, fifteen: 15, twenty: 20, "twenty-five": 25, thirty: 30, "forty-five": 45, sixty: 60 };
+  const hash = s => { let h = 7; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return Math.abs(h); };
+  const pick = (arr, seed) => arr[seed % arr.length];
+  const norm = s => " " + s.toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, " ") + " ";
+
+  /* ---------------------------------------------------------------- Understanding */
+  const GOALS = [
+    ["stress", /(stress|pressure|burn ?out|burnt out|frazzled|tense|tension)/, "Reduce stress"],
+    ["overwhelm", /(overwhelm|too much going on|swamped|drowning)/, "Feel less overwhelmed"],
+    ["anxiety", /(anxious|anxiety|worry|worried|worrying|nervous|on edge)/, "Ease anxiety and worry"],
+    ["sleep", /(sleep|insomnia|switch(es)? off|wind down|can'?t settle|awake at night|lie awake)/, "Sleep and switching off"],
+    ["focus", /(focus|concentrat|distracted at work|productiv|clarity|clear head|attention span)/, "Better focus"],
+    ["habit", /(stick|consisten|habit|routine|regular practice|structure|discipline|keep it up|make it last)/, "Build a lasting practice"],
+    ["compassion", /(compassion|kindness|kinder|loving|relationships?|heart|less judgemental|self[- ]criticism|be gentler)/, "Compassion and kindness"],
+    ["calm", /(\bcalm|peace|content|happier|happiness|joy|balance|grounded)/, "More calm and contentment"],
+    ["learn", /(learn properly|properly|understand how|the right way|technique|how to meditate|learn to meditate|learn meditation)/, "Learn meditation properly"],
+    ["deepen", /(deepen|go deeper|advanced|next level|take it further)/, "Deepen my practice"]
+  ];
+  const CHALLENGES = [
+    [/(work|job|career|deadlines|boss|office)/, "Busy work life"],
+    [/(mind (is )?(racing|busy|never stops|won'?t stop|all over)|racing thoughts|busy mind|overthink|can'?t switch off|never switches off)/, "Busy, racing mind"],
+    [/(no time|not much time|don'?t have (much|a lot of) time|short on time|busy schedule|limited time|time[- ]poor)/, "Limited time"],
+    [/(kids|children|family|toddler|baby|caring for)/, "Family commitments"],
+    [/(can'?t sit still|restless|fidget)/, "Restlessness"],
+    [/(tried before|gave up|couldn'?t stick|fell off|lapsed|on and off|off and on)/, "Hard to stay consistent"]
+  ];
+
+  function extract(raw, state) {
+    const t = norm(raw);
+    const p = { ...(state.profile || {}) };
+    const f = state.flags;
+    const found = {};
+
+    // Experience
+    if (/(never (really )?(meditated|tried|done)|new to (meditation|meditating|this|it)|i'?m (very |completely |totally |quite )?new|beginner|first time|novice|no experience|haven'?t (ever )?(meditated|tried|done)|complete newbie)/.test(t)) found.experience = "Complete beginner";
+    else if (/(on and off|off and on|tried (it )?(a bit|before|a few times|a little)|some experience|dabbled|headspace|calm app|apps?\b|now and then|lapsed|used to meditate|fell off|a little experience)/.test(t)) found.experience = "Some experience";
+    else if (/(meditat\w* (for (many |a few |several )?years|every day|daily|regularly)|years of (practice|meditation)|experienced|regular practice|daily practice|long[- ]?time meditator)/.test(t)) found.experience = "Experienced";
+
+    // Goals (keep an ordered set)
+    f.goals = f.goals || [];
+    for (const [key, re] of GOALS) if (re.test(t) && !f.goals.includes(key)) f.goals.push(key);
+    if (f.goals.length) found.goal = f.goals.slice(0, 2).map(k => GOALS.find(g => g[0] === k)[2]).join(", ");
+
+    // Challenges
+    f.challenges = f.challenges || [];
+    for (const [re, label] of CHALLENGES) if (re.test(t) && !f.challenges.includes(label)) f.challenges.push(label);
+    if (f.challenges.length) found.challenges = f.challenges.slice(0, 2).join(", ");
+
+    // Time available
+    let mins = null;
+    const m = t.match(/(\d{1,3})\s*(?:-|to|–|or)?\s*(\d{1,3})?\s*(?:min|mins|minute|minutes)\b/);
+    if (m) mins = m[2] ? +m[2] : +m[1];
+    if (!mins) { const w = t.match(/\b(five|ten|twelve|fifteen|twenty|twenty-five|thirty|forty-five|sixty)\s*(?:min|mins|minutes?)\b/); if (w) mins = WORDNUM[w[1]]; }
+    if (!mins && /half an hour/.test(t)) mins = 30;
+    if (!mins && /\b(an|one|1) hour\b/.test(t)) mins = 60;
+    if (mins && mins > 0 && mins <= 180) { f.minutes = mins; found.time_available = mins + " minutes a day"; }
+    else if (!f.minutes && /(no time|not much time|don'?t have (much|a lot of) time|short on time|busy|limited time|time[- ]poor)/.test(t)) { f.minutes = 10; found.time_available = "Short on time"; }
+
+    // Time of day
+    const tod = [];
+    if (/(morning|before work|when i wake|wake up|first thing|early)/.test(t)) tod.push([t.search(/(morning|before work|when i wake|wake up|first thing|early)/), "Morning"]);
+    if (/(evening|after work|at night|before bed|bedtime|tonight|night)/.test(t)) tod.push([t.search(/(evening|after work|at night|before bed|bedtime|tonight|night)/), "Evening"]);
+    if (/lunch/.test(t)) tod.push([t.search(/lunch/), "Lunchtime"]);
+    if (tod.length) found.time_of_day = tod.sort((a, b) => b[0] - a[0])[0][1];
+
+    // Format
+    if (/(in[- ]person|face[- ]to[- ]face|attend (something|a class|classes|in person|physically)|group class|with other people|a class near|physically|real class|meet people)/.test(t)) { f.format = "inperson"; found.format = "In person preferred"; }
+    else if (/(audio|listen|podcast|commut|while walking|headphones|on the train|on the bus)/.test(t)) { f.format = "audio"; found.format = "Audio / listening"; }
+    else if (/(\bvideos?\b|see the teacher)/.test(t)) { f.format = "video"; found.format = "Video"; }
+    else if (/(online|zoom|from home|at home|self[- ]paced|in my own time|recordings?)/.test(t)) { f.format = "online"; found.format = "Online"; }
+    if (/retreat/.test(t)) { f.retreat = true; found.other = "Interested in retreats"; }
+
+    // Location
+    let loc = null;
+    if (/(edinburgh|haddington|east lothian|midlothian|west lothian|lothian|leith|musselburgh|portobello|dalkeith|north berwick|dunbar|livingston)/.test(t)) loc = "Edinburgh area";
+    else {
+      const lm = raw.match(/\b(?:live in|living in|based in|i'?m in|i am in|near|from|move to|moving to)\s+([A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+)?)/);
+      if (lm && !/^(Home|Work|The|My|I)$/.test(lm[1])) loc = lm[1];
+    }
+    if (!loc && f.askedLocation && !p.location) {
+      if (/^\s*(yes|yeah|yep|sure|it is|definitely|absolutely)\b/i.test(raw)) loc = "Edinburgh area";
+      else if (/^\s*(no|nope|not really|sadly not|unfortunately not)\b/i.test(raw)) loc = "Outside Edinburgh";
+      else { const w = raw.trim().match(/^([A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+)?)[.!]?$/); if (w) loc = w[1]; }
+    }
+    if (loc) found.location = loc;
+
+    Object.assign(p, found);
+    return { profile: p, found, t };
+  }
+
+  function detectWellbeing(t) {
+    if (/(suicid|kill myself|end (it all|my life)|self[- ]harm|hurt(ing)? myself|don'?t want to (live|be here|be alive)|no reason to live|better off dead)/.test(t)) return "crisis";
+    if (/(depress|panic attack|ptsd|trauma|bipolar|psychosis|eating disorder|diagnos|medication|chronic pain|heart condition|epilep|grief|bereave|breakdown|therapist|counsell)/.test(t)) return "concern";
+    return null;
+  }
+
+  function intentsOf(t, raw, state) {
+    const f = state.flags, I = new Set();
+    const q = /\?/.test(raw) || /^\s*(can|could|is|are|what|how|when|where|do|does|should|will|would|why|which)\b/i.test(raw);
+    if (/^\s*(hi|hello|hey|good (morning|afternoon|evening))[\s!.,]*$/i.test(raw)) I.add("greeting");
+    if (f.offeredPlan && !state.plan && /^\s*(yes|yeah|yep|yup|sure|please|ok(ay)?|go on|go ahead|sounds (good|great)|let'?s (do|go)|that would be|i'?d (like|love) (that|one)|absolutely|definitely|why not)\b/i.test(raw)) I.add("plan_yes");
+    if (f.offeredPlan && !state.plan && /^\s*(no|not (now|yet|right now)|maybe later|no thanks|i'?m (ok|good|fine))\b/i.test(raw)) I.add("plan_no");
+    if (/((create|make|build|give|write|want|need|like|see|show)\b.{0,25}\bplan|plan (for me|please)|\bmy plan\b|a (practice )?routine)/.test(t) && !/(miss|skip)/.test(t)) I.add("plan_request");
+    if (/(\d+|seven|7|14|21|28|two|three|four)[- ]?(day|week)s? plan|a month|4 weeks|three weeks|two weeks/.test(t) && state.plan) I.add("plan_length");
+    if (/(miss(ed)? a (day|session)|skip(ped)?|forget|forgot|fall off|fell off|break the streak|lose (my )?momentum|don'?t manage)/.test(t)) I.add("missed");
+    if (/(only (have|got|get)?\s*(\d+|a few|five|ten|fifteen|twenty)|less time|shorter|not enough time|busier)/.test(t)) I.add("short_time");
+    if (/(evening|at night|before bed|bedtime|after work)/.test(t) && q) I.add("evening");
+    if (/(morning|before work|when i wake)/.test(t) && q) I.add("morning");
+    if (/retreat/.test(t)) I.add("retreat");
+    if (/(suitable|right for me|ok for (a )?beginner|good for beginners|too advanced|too hard|complete(ly)? new|never meditated|will i be able)/.test(t) && q) I.add("suitable");
+    if (/(cost|price|how much|\bfee|pay\b|paid|free\b|afford|expensive|donat)/.test(t)) I.add("price");
+    if (/(when (does|is|do|will|can)|dates?\b|start date|next (course|class|series)|upcoming|schedule[d]?\b)/.test(t)) I.add("dates");
+    if (/(in[- ]person|face[- ]to[- ]face|attend|group class|edinburgh|haddington|venue|where (is|are|do))/.test(t) && state.rec && !/retreat/.test(t)) I.add("in_person");
+    if (/(audio|listen|podcast|commut|headphones)/.test(t) && state.rec) I.add("audio");
+    if (/(what (will|do) (i|we) (learn|cover)|what'?s (covered|included|in it)|types of meditation|which techniques|mantra|loving kindness|mindfulness|what does (it|the course) (cover|include|involve)|tell me more|more about (it|the course|this))/.test(t)) I.add("content");
+    if (/(mind wanders|wandering|distracted|can'?t (stop|clear|quiet)|too many thoughts|racing|am i doing it (right|wrong)|bad at (it|meditation)|can'?t meditate)/.test(t) && (q || state.rec)) I.add("distracted");
+    if (/(sit\b|sitting|posture|position|chair|cross[- ]legged|lie down|lying down|cushion)/.test(t) && q) I.add("posture");
+    if (/(religio|spiritual|buddhis|faith|church)/.test(t)) I.add("religion");
+    if (/(who (teaches|runs|leads)|teacher|instructor|who are you|who is behind)/.test(t)) I.add("teacher");
+    if (/(one[- ]to[- ]one|1[:\-]1|private (session|lesson)|personal coach|coaching)/.test(t)) I.add("one_to_one");
+    if (/(how (do|can) i (start|begin|sign up|register|book|join|enrol)|sign me up|register|sign up|\bbook\b|enrol|get started|next step)/.test(t)) I.add("next_steps");
+    if (/(thank|thanks|cheers|brilliant|perfect|great,? that'?s|that'?s (all|great|helpful)|bye|goodbye)/.test(t)) I.add("thanks");
+    if (/(sleep|insomnia|switch off at night)/.test(t) && q && state.rec) I.add("sleep_q");
+    return I;
+  }
+
+  /* ---------------------------------------------------------------- Recommending */
+  function recommend(state) {
+    const p = state.profile, f = state.flags, g = f.goals || [];
+    const score = { "intro-winter-2025": 5, "intro-8wk-audio": 2, "intro-12wk-video": 1, "compassion-5wk": 0 };
+    if (f.format === "audio") score["intro-8wk-audio"] += 4;
+    if (f.format === "video" && /(thorough|slow|in depth|detail)/.test(f.lastText || "")) score["intro-12wk-video"] += 5;
+    if (g.includes("compassion")) score["compassion-5wk"] += p.experience === "Complete beginner" ? 1 : 4;
+    if (p.experience === "Experienced" && g.includes("compassion")) score["compassion-5wk"] += 3;
+    if (p.experience === "Experienced" && g.includes("deepen")) score["compassion-5wk"] += 3;
+    const primary = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+
+    const alts = [];
+    if (f.format === "inperson" || f.retreat || p.location === "Edinburgh area") alts.push("edinburgh-in-person");
+    if (primary !== "intro-8wk-audio" && (f.format === "audio" || (f.challenges || []).includes("Limited time"))) alts.push("intro-8wk-audio");
+    if (primary !== "intro-winter-2025") alts.push("intro-winter-2025");
+    if (primary === "intro-winter-2025" && g.includes("compassion")) alts.push("compassion-5wk");
+    if (!alts.length) alts.push(primary === "intro-8wk-audio" ? "intro-winter-2025" : "intro-8wk-audio");
+    return { primary, alternatives: [...new Set(alts)].filter(a => a !== primary).slice(0, 2) };
+  }
+
+  function whyFor(state, primary) {
+    const p = state.profile, f = state.flags, g = f.goals || [], why = [];
+    const mins = f.minutes;
+    if (primary === "intro-winter-2025" || primary === "intro-8wk-audio" || primary === "intro-12wk-video") {
+      if (p.experience === "Complete beginner") why.push("It's written for complete beginners: Week 1 is literally called “You CAN Meditate”.");
+      else if (p.experience === "Some experience") why.push("It gives the structure that's usually missing when a practice keeps slipping, starting from first principles.");
+      if (primary === "intro-winter-2025" && mins) why.push(mins <= 15 ? `The daily meditations run 10 to 15 minutes, so they fit the ${mins} minutes you have.` : `The 10 to 15 minute daily meditations sit comfortably within the ${mins} minutes you have, with room for a class now and then.`);
+      else if (primary === "intro-winter-2025") why.push("Fifty-six short daily meditations (10 to 15 minutes) give you a ready-made daily rhythm.");
+      if (primary === "intro-8wk-audio") why.push("It's all audio, so you can listen on a commute, a walk or with your eyes closed at home.");
+      if (g.includes("stress") || g.includes("overwhelm") || g.includes("anxiety")) why.push("It explains how the mind drives stress and overwhelm, then gives you practical tools rather than just “watch your breath”.");
+      if (g.includes("sleep")) why.push("It helps you get familiar with a busy mind and learn to let thoughts go, which many people find helps them switch off.");
+      if (g.includes("learn")) why.push("It goes into the detail, so you know precisely what you're trying to do and how.");
+      if (g.includes("habit")) why.push("The daily sessions do the hardest part for you: turning meditation into a regular habit.");
+      if (p.time_of_day === "Evening" && primary === "intro-winter-2025") why.push("The live classes originally ran on Wednesday evenings, and the recordings work around whatever evening suits you.");
+      if (f.format === "inperson") why.push("No in-person classes are scheduled right now, so this lets you start today rather than wait.");
+      why.push("It explores several types of meditation so you can find the one that genuinely suits you.");
+    } else if (primary === "compassion-5wk") {
+      why.push("It's a focused month on meditations of the heart: loving kindness and compassion.");
+      if (p.experience !== "Complete beginner") why.push("It suits someone with some practice already who wants a new challenge.");
+      why.push("It's recorded, so you can follow it at your own pace.");
+      if (mins) why.push(`You can pair the classes with short daily practice that fits your ${mins} minutes.`);
+    }
+    return [...new Set(why)].slice(0, 4);
+  }
+
+  function headlineFor(state, primary) {
+    const p = state.profile;
+    const o = CATALOGUE[primary];
+    if (primary === "intro-winter-2025") return p.experience === "Complete beginner" ? "Our main course for beginners: learn properly, a little each day." : "Our main course: structured, practical and paced a little each day.";
+    if (primary === "intro-8wk-audio") return "The same practical introduction, in a listen-anywhere audio format.";
+    if (primary === "compassion-5wk") return "A month-long challenge in meditations of the heart.";
+    return o.summary;
+  }
+
+  /* ---------------------------------------------------------------- Planning */
+  function buildPlan(state, days) {
+    const p = state.profile, f = state.flags, g = f.goals || [];
+    const m = Math.max(3, f.minutes || 15);
+    days = days || f.planDays || 14;
+    f.planDays = days;
+    const tod = p.time_of_day || "Daily";
+    const when = tod === "Evening" ? "in the evening" : tod === "Morning" ? "in the morning" : tod === "Lunchtime" ? "at lunchtime" : "at a regular time";
+    const range = (lo, hi) => { lo = Math.min(lo, m); hi = Math.min(hi, m); return lo === hi ? `${lo} minutes a day` : `${lo} to ${hi} minutes a day`; };
+    const primary = state.rec ? state.rec.primary : "intro-winter-2025";
+    const stressy = g.some(x => ["stress", "overwhelm", "anxiety", "sleep"].includes(x));
+    const anchor = tod === "Evening" ? "straight after work or before dinner" : tod === "Morning" ? "before you check your phone" : "at the same time each day";
+
+    const weeks = [];
+    const classChunk = m >= 30 ? "Watch this week's class (about 90 minutes)" : "Watch this week's class in two or three short sittings";
+    if (primary === "intro-8wk-audio") {
+      weeks.push({ focus: "Settling in: letting go of the idea that you can't meditate.", practices: [
+        { resource: "audio-series", how: "Listen to Week One: You CAN Meditate, split across a few days" },
+        { resource: "breathe-to-relax", how: "On the other days, use this 4-minute practice " + when } ], goal: "Practise on 5 of the 7 days." });
+      weeks.push({ focus: "Being present: using the body as an anchor as well as the breath.", practices: [
+        { resource: "audio-series", how: "Listen to Week Two: Being Present" },
+        { resource: "breathe-to-relax", how: stressy ? "Keep it for tense days" : "Use it when time is tight" } ], goal: "Notice one moment each day when you “begin again”." });
+      weeks.push({ focus: "See, Hear, Feel: a more active mindfulness technique.", practices: [{ resource: "audio-series", how: "Listen to Week Three" }], goal: "Try noting See, Hear, Feel for a few minutes each day." });
+      weeks.push({ focus: "Emotional dexterity: meeting feelings with a little more space.", practices: [{ resource: "audio-series", how: "Listen to Week Four" }], goal: "Keep the daily rhythm going on 5 days out of 7." });
+    } else if (primary === "compassion-5wk") {
+      weeks.push({ focus: "Opening the heart: getting to know loving kindness practice.", practices: [
+        { resource: "compassion-classes", how: "Watch the first class" },
+        { resource: "daily-meditations", how: "Use a short guided session on the other days" } ], goal: "Practise on 5 of the 7 days." });
+      weeks.push({ focus: "Extending kindness to others and, just as importantly, yourself.", practices: [
+        { resource: "compassion-classes", how: "Watch the second class" },
+        { resource: "w25-week-6", how: "Optional: the Loving Kindness class from the Introduction" } ], goal: "Offer one silent good wish to someone each day." });
+      weeks.push({ focus: "Compassion: staying present with difficulty.", practices: [{ resource: "compassion-classes", how: "Watch the third class" }, { resource: "w25-week-7", how: "Optional: the Compassion class" }], goal: "Notice self-criticism and meet it kindly." });
+      weeks.push({ focus: "Bringing it together.", practices: [{ resource: "compassion-classes", how: "Watch the remaining classes" }], goal: "Choose the heart practice you want to keep." });
+    } else {
+      weeks.push({ focus: "Building consistency and discovering that you CAN meditate.", practices: [
+        ...(stressy ? [{ resource: "breathe-to-relax", how: "Days 1 to 2: start with this 4-minute practice to slow things down" }] : []),
+        { resource: "daily-meditations", how: stressy ? "Days 3 to 7: follow the Week 1 daily meditations " + when : "Follow the Week 1 daily meditations " + when },
+        { resource: "w25-week-1", how: classChunk + " (optional)" } ], goal: "Meditate on 5 of the 7 days. That's a genuinely good week." });
+      weeks.push({ focus: "Building blocks: breath, body and gently beginning again.", practices: [
+        { resource: "daily-meditations", how: "Continue with the Week 2 daily meditations " + when },
+        { resource: "w25-week-2", how: classChunk + " (optional)" },
+        ...(stressy ? [{ resource: "breathe-to-relax", how: "Keep this for especially frazzled days" }] : []) ], goal: "Notice one moment each day when you “begin again”." });
+      weeks.push({ focus: "Why meditate: seeing how your mind works for and against you.", practices: [
+        { resource: "daily-meditations", how: "Week 3 daily meditations" }, { resource: "w25-week-3", how: classChunk } ], goal: "Spot one habitual thought pattern and let it go." });
+      weeks.push({ focus: "See, Hear, Feel: a practical mindfulness technique for busy minds.", practices: [
+        { resource: "daily-meditations", how: "Week 4 daily meditations" }, { resource: "w25-week-4", how: classChunk } ], goal: "Try a few minutes of noting on a stressful day." });
+    }
+    const nBlocks = days <= 7 ? 1 : days <= 14 ? 2 : days <= 21 ? 3 : 4;
+    const mins = [range(5, 10), range(10, 15), range(10, 20), range(15, 20)];
+    const blocks = weeks.slice(0, nBlocks).map((w, i) => ({ label: `Week ${i + 1}: Days ${i * 7 + 1} to ${i * 7 + 7}`, minutes: m <= 5 ? `${m} minutes a day` : mins[i], ...w }));
+
+    const tips = [
+      "Missed a day? Simply begin again with the next session. There's nothing to make up.",
+      `Anchor it to something you already do: ${anchor}.`,
+      m <= 10 ? "On the busiest days, the 4-minute Breathe to Relax still counts." : "If a session runs short, that's fine. A little, often, beats a lot, occasionally.",
+      "A wandering mind isn't failure. Noticing it and returning is the practice."
+    ];
+    const todTag = tod === "Daily" ? "Any time of day" : tod + "s";
+    return {
+      title: `Your ${days}-Day ${tod === "Daily" ? "" : tod + " "}Meditation Plan`.replace("  ", " "),
+      summary: `A gentle, realistic start that never goes over your ${m} minutes${tod !== "Daily" ? ", practised " + when : ""}.`,
+      rhythm: [todTag, `Up to ${m} min`, "Everyday-ish"],
+      blocks, tips
+    };
+  }
+
+  /* ---------------------------------------------------------------- Replies */
+  function reflect(state, seed) {
+    const p = state.profile, g = state.flags.goals || [], ch = state.flags.challenges || [], parts = [];
+    if (ch.includes("Busy work life") && (g.includes("stress") || g.includes("overwhelm")))
+      parts.push(pick(["Thank you for sharing that. Feeling overwhelmed by work is one of the most common reasons people come to meditation, so you're in very good company.", "That sounds like a lot to carry. Work stress and that sense of overwhelm are exactly why many people start meditating."], seed));
+    else if (g.includes("sleep"))
+      parts.push("A mind that won't switch off, especially at night, is something so many people bring to meditation.");
+    else if (g.includes("anxiety"))
+      parts.push("Thank you for sharing that. Worry and anxiety can be exhausting, and it's good that you're looking for ways to support yourself.");
+    else if (g.includes("stress") || g.includes("overwhelm"))
+      parts.push("Thank you for sharing that. Stress is the most common reason people come to meditation, and it's a very good one.");
+    else if (g.includes("habit") || ch.includes("Hard to stay consistent"))
+      parts.push("Finding it hard to make a practice stick is the most common challenge of all, and it's almost always about structure rather than ability.");
+    else if (g.includes("compassion"))
+      parts.push("Wanting to cultivate more kindness, for others and yourself, is a lovely reason to meditate.");
+    else if (g.includes("focus"))
+      parts.push("Better focus is a really practical goal, and it's one meditation trains directly.");
+    else parts.push(pick(["Thank you, that's really helpful.", "Thanks for sharing that."], seed));
+
+    if (p.experience === "Complete beginner") parts.push("And starting from scratch is completely fine. As we like to say at Real World Meditation, you CAN meditate.");
+    return parts.join(" ");
+  }
+
+  function inPersonHonesty(state) {
+    const loc = state.profile.location;
+    let s = "You mentioned wanting something in person, so I'll be honest: we don't have any in-person classes scheduled at the moment. Since 2023 we've run free and low-cost classes in Edinburgh and Haddington, and you can register interest to hear first when new ones are announced.";
+    if (loc && loc !== "Edinburgh area") s = `You mentioned wanting something in person. I'll be honest: our in-person classes have been in Edinburgh and Haddington, and none are scheduled right now, so from ${loc === "Outside Edinburgh" ? "where you are" : loc} an online course is the realistic option.`;
+    return s;
+  }
+
+  const PLAN_OFFER = "Based on what you've shared, this looks like a good place to start. If you'd like, I can also create a simple meditation plan that you can follow alongside your journey.";
+
+  function recLine(state, primary) {
+    const f = state.flags, mins = f.minutes, tod = state.profile.time_of_day;
+    const fit = mins && mins <= 20 ? `, with short daily meditations of 10 to 15 minutes that fit neatly into your ${tod ? tod.toLowerCase() : "day"}` : ", with short daily meditations of 10 to 15 minutes alongside eight weekly classes";
+    const lead = f.format === "inperson" ? "In the meantime, the best place to start is" : "I'd suggest starting with";
+    if (primary === "intro-winter-2025") return `${lead} our **Introduction to Meditation: 8 Weeks**. It's our main course, it starts from first principles${fit}. The recordings are freely available, so you can begin whenever you like.`;
+    if (primary === "intro-8wk-audio") return `${lead} our **8 Week Introduction to Meditation: Audio**. It covers mindfulness, mantra and loving kindness in eight audio sessions you can listen to anywhere, and it's freely available on the website.`;
+    if (primary === "compassion-5wk") return `${lead} the **5 Week Compassion Experiment**: a month of meditations of the heart, recorded in five video classes you can follow at your own pace.`;
+    if (primary === "intro-12wk-video") return `${lead} our **12 Week Introduction to Meditation: Video**, the fullest and most gradual version of our introduction.`;
+    return "";
+  }
+
+  function answer(intent, state) {
+    const rec = state.rec, o = rec && CATALOGUE[rec.primary], p = state.profile, f = state.flags;
+    const name = o ? o.name.replace(/ \(.*\)$/, "") : "the Introduction to Meditation";
+    switch (intent) {
+      case "evening": return "Yes, evenings work well. As general guidance, try to meditate before you're too tired: straight after work or before dinner tends to work better than in bed, where it's easy to drift off. If better sleep is part of what you want, a short practice at bedtime is fine too." + (rec && rec.primary === "intro-winter-2025" ? " Our live Introduction classes actually ran on Wednesday evenings." : "");
+      case "morning": return "Mornings are a lovely time if they suit you. As general guidance, a few minutes before you check your phone can set the tone for the day. The best time, honestly, is simply the one you'll keep coming back to.";
+      case "missed": return "Then you simply begin again. That's at the heart of how we teach meditation: getting distracted and starting over *is* the practice, and the same goes for missing a day. There's no need to make up time; just pick up with the next session. We suggest aiming for everyday-ish: five days out of seven is a genuinely good week.";
+      case "short_time": return `${f.minutes ? f.minutes + " minutes" : "A few minutes"} a day is plenty to begin with. What matters most early on is doing a little, often: daily-ish for ten days to two weeks is usually when people start to notice a difference.` + (f.minutes && f.minutes <= 5 ? " The 4-minute Breathe to Relax meditation is ideal for this." : "");
+      case "retreat": return "Real World Meditation doesn't currently list any retreats, so I can't recommend one. The closest options are our in-person classes in Edinburgh and Haddington (none scheduled right now, but you can register interest), or going deeper with a recorded course such as the 5 Week Compassion Experiment once you have the basics. If a retreat matters to you, use Enquire to ask the team about future plans.";
+      case "suitable":
+        if (rec && rec.primary === "compassion-5wk") return "The Compassion Experiment is easier with a little practice behind you. If you're completely new, I'd start with the Introduction to Meditation and come back to it later.";
+        return `Yes, completely. ${name} starts from first principles, and Week 1 is called “You CAN Meditate”. Lots of people assume they can't meditate because their mind is busy. Our view is that noticing a busy mind means you're doing it right.`;
+      case "price": return o ? `${o.price} Real World Meditation is a Scottish charity, set up to make meditation education accessible.` : "Our recorded courses are freely available on the website. Real World Meditation is a Scottish charity, set up to make meditation education accessible.";
+      case "dates": return o ? `${o.dates} There are no upcoming dated courses listed at the moment, which is why I've suggested something you can start today. You can sign up on the website to hear about future live series.` : "There are no upcoming dated courses listed at the moment. The recorded courses are available any time.";
+      case "in_person": return p.location === "Edinburgh area"
+        ? "Our in-person classes have been held at the Eric Liddell Community Centre in Edinburgh and at the Lamp of Lothian Trust in Haddington. Nothing is scheduled right now, so I'd register interest on the Edinburgh page and start the online course in the meantime. You'll already know the basics when classes restart."
+        : "Our in-person classes have been in Edinburgh and Haddington, and none are scheduled right now. You can register interest on the Edinburgh page, and in the meantime the recorded course lets you start straight away.";
+      case "audio": return "If you'd rather listen, the **8 Week Introduction to Meditation: Audio** is ideal: eight audio classes you can play on a commute, a walk or at home. I've added it to your options.";
+      case "content": return o && o.offers ? `Here's what ${name} covers:\n- ${o.offers.join("\n- ")}\n\nThe idea is to try several types of meditation so you can find the one you like, find easy enough, and will come back to on your own.` : "";
+      case "distracted": return "That's completely normal, and it's not a sign you're doing it wrong. Meditation isn't about stopping your thoughts. You pay attention to the breath, your mind wanders, you notice, and you gently begin again. Each time you notice and return, you're building the real skill. Our Start Here page walks through this in seven simple steps.";
+      case "posture": return "As general guidance: sit however you're comfortable and alert. A chair is absolutely fine, with your feet on the floor and your back reasonably upright. You don't need to sit cross-legged. Lying down works too, though it's easier to fall asleep, which is lovely at bedtime but less so mid-afternoon.";
+      case "religion": return "Real World Meditation isn't religious. We borrow techniques from many of the world's traditions, but the focus is entirely practical: finding what genuinely helps in everyday, real-world life.";
+      case "teacher": return "I don't have details about individual teachers in the information I've been given, so I won't guess. Real World Meditation is run by RWM Education, a Scottish charity based in Edinburgh. You can ask about teachers directly using Enquire.";
+      case "one_to_one": return "Real World Meditation doesn't list one-to-one sessions, so I can't offer those. If that's something you'd really value, it's worth asking the team through Enquire.";
+      case "sleep_q": return "Many people find meditation helps them switch off. As general guidance, a short practice in the early evening can help you wind down, and noticing thoughts without following them is a skill that carries into bedtime. If sleep problems are persistent or affecting your health, it's worth speaking to your GP as well.";
+      default: return "";
+    }
+  }
+
+  function planIntro(state) {
+    const m = state.flags.minutes || 15, tod = state.profile.time_of_day;
+    const src = state.rec && state.rec.primary === "intro-8wk-audio" ? "the audio classes" : state.rec && state.rec.primary === "compassion-5wk" ? "the Compassion classes" : "the Introduction to Meditation daily sessions";
+    return `Here's your plan. I've kept every session to ${m} minutes or less${tod ? ", " + (tod === "Evening" ? "in the evening" : tod === "Morning" ? "in the morning" : "at lunchtime") : ""}, starting small so it's easy to keep going. It follows ${src}, which gives you a clear next step each day.\n\nIt's there on the plan card whenever you need it. Feel free to ask me anything, for example what to do if you miss a day.`;
+  }
+
+  function closingLine(state) {
+    const o = state.rec && CATALOGUE[state.rec.primary];
+    if (!o) return "It's been lovely talking with you. Whenever you're ready, the Start Here page is a gentle first step.";
+    const first = state.rec.primary === "intro-winter-2025" ? " Begin with the Week 1 class and the Day 1 daily meditation. There's no booking needed for the recordings." : "";
+    const ip = state.flags.format === "inperson" ? " And register interest on the Edinburgh page so you hear first about in-person classes." : "";
+    return `Based on your goals, I recommend starting with **${o.name.replace(/ \(.*\)$/, "")}**.${first}${ip} Your personalised plan is there whenever you need it. Take a breath, and enjoy the start of your practice.`;
+  }
+
+  const POOL = [["What if I miss a day?", "missed"], ["I only have 10 minutes a day", "short_time"], ["Is it suitable for complete beginners?", "suitable"], ["Can I attend a retreat instead?", "retreat"], ["How do I get started?", "next_steps"], ["Can I do this in the evening?", "evening"], ["What will I learn?", "content"], ["Can I listen instead?", "audio"], ["Yes, please create my plan", "plan_yes"]];
+  function suggest(state, wanted) {
+    const done = new Set(state.flags.done || []);
+    if (state.profile.experience === "Experienced") done.add("suitable");
+    if (state.profile.time_of_day === "Evening") done.add("evening");
+    if (state.plan) done.add("plan_yes");
+    if (state.rec && state.rec.primary === "intro-8wk-audio") done.add("audio");
+    return wanted.map(k => POOL.find(x => x[1] === k)).filter(x => x && !done.has(x[1])).slice(0, 2).map(x => x[0]);
+  }
+
+  /* ---------------------------------------------------------------- Main */
+  function respond(raw, state) {
+    state.flags = state.flags || {};
+    const f = state.flags;
+    const seed = hash(raw);
+    const before = JSON.stringify(state.profile || {});
+    const { profile, found, t } = extract(raw, state);
+    state.profile = profile;
+    f.lastText = t;
+    const I = intentsOf(t, raw, state);
+    const out = { reply: "", profile, recommendation: null, plan: null, suggestions: [], wellbeing_flag: false };
+    const well = detectWellbeing(t);
+
+    // 1. Safety first
+    if (well === "crisis") {
+      out.wellbeing_flag = true;
+      out.reply = "I'm really sorry you're feeling this way, and I'm glad you said something. Meditation isn't the right support for what you're going through right now, and you deserve to talk to someone who can help properly.\n\nIf you might be in danger, please call **999** now. You can also call **Samaritans on 116 123** any time, day or night, or **NHS 111**. If you're outside the UK, please contact your local emergency services.\n\nI'm still here if you'd like to talk about anything else.";
+      out.suggestions = [];
+      return out;
+    }
+    let prefix = "";
+    if (well === "concern") {
+      out.wellbeing_flag = true;
+      prefix = "Thank you for trusting me with that. I should be clear that meditation isn't a substitute for professional support, so please do keep talking with your GP or a qualified professional about it. Many people find meditation a helpful companion alongside that care.\n\n";
+    }
+
+    const hasSignal = !!(profile.goal || profile.experience || profile.format || profile.challenges || profile.time_available);
+
+    // 2. No recommendation yet
+    if (!state.rec) {
+      if (I.has("greeting") && !hasSignal) {
+        out.reply = "Hello, and welcome. There's no right or wrong answer here. What's drawing you to meditation at the moment?";
+        out.suggestions = ["I want to feel less stressed", "I've never meditated before"];
+        return out;
+      }
+      if (!hasSignal && !f.askedGoal) {
+        f.askedGoal = true;
+        const specific = [...I].map(i => answer(i, state)).filter(Boolean).slice(0, 2).join("\n\n");
+        out.reply = prefix + (specific ? specific + "\n\n" : "") + "To point you to the right place, could you tell me a little about what you're hoping meditation will help with? It might be stress, sleep, focus, or something else entirely.";
+        out.suggestions = ["Mostly stress from work", "I can't switch off at night"];
+        return out;
+      }
+      // Recommend
+      const r = recommend(state);
+      const why = whyFor(state, r.primary);
+      out.recommendation = { primary: r.primary, alternatives: r.alternatives, headline: headlineFor(state, r.primary), why, honesty_note: f.format === "inperson" || f.retreat ? "No in-person classes or retreats are currently scheduled. Register interest on the Edinburgh page to hear first." : null };
+      const r0 = reflect(state, seed);
+      const parts = [(prefix + (prefix && /^Thank(s| you)/.test(r0) ? r0.replace(/^Thank(s| you)[^.]*\.\s*/, "") : r0)).trim()].filter(x => x);
+      if (f.retreat) parts.push("On retreats: Real World Meditation doesn't currently list any, so I won't suggest one that doesn't exist.");
+      if (f.format === "inperson") parts.push(inPersonHonesty(state));
+      parts.push(recLine(state, r.primary));
+      if (f.format === "inperson" && !profile.location && !f.askedLocation) {
+        f.askedLocation = true;
+        parts.push("Is Edinburgh or East Lothian practical for you, for when in-person classes restart?");
+        out.suggestions = ["Yes, I'm in Edinburgh", "No, I'm further away"];
+      } else {
+        f.offeredPlan = true;
+        parts.push(PLAN_OFFER);
+        out.suggestions = ["Yes, please create my plan", "Can I attend a retreat instead?"];
+      }
+      out.reply = parts.join("\n\n");
+      return out;
+    }
+
+    // 3. Recommendation exists: conversation continues
+    const parts = [];
+    if (prefix) parts.push(prefix.trim());
+
+    // Location answer after we asked
+    if (f.askedLocation && found.location && !f.locationHandled) {
+      f.locationHandled = true;
+      if (found.location === "Edinburgh area") parts.push("Lovely. Then registering interest on the Edinburgh page is well worth doing: past classes have been at the Eric Liddell Community Centre and in Haddington, and have been free or low-cost. Starting the online course now means you'll arrive with the basics already in place.");
+      else parts.push(`Thanks. As our in-person classes have been in Edinburgh and Haddington, the online course is the best fit for you${found.location !== "Outside Edinburgh" ? " in " + found.location : ""}, and you can start it today.`);
+      out.recommendation = { ...state.rec, alternatives: found.location === "Edinburgh area" ? ["edinburgh-in-person", ...state.rec.alternatives.filter(a => a !== "edinburgh-in-person")].slice(0, 2) : state.rec.alternatives.filter(a => a !== "edinburgh-in-person").concat(["intro-8wk-audio"]).filter(a => a !== state.rec.primary).slice(0, 2), honesty_note: found.location === "Edinburgh area" ? state.rec.honesty_note : null };
+      if (!state.plan) { f.offeredPlan = true; parts.push(PLAN_OFFER); out.suggestions = ["Yes, please create my plan", "What will I learn?"]; }
+      out.reply = parts.join("\n\n");
+      return out;
+    }
+
+    // Re-evaluate recommendation if preferences changed materially
+    if (found.format || (found.goal && found.goal !== JSON.parse(before).goal) || found.experience) {
+      const r = recommend(state);
+      if (r.primary !== state.rec.primary) {
+        out.recommendation = { primary: r.primary, alternatives: r.alternatives, headline: headlineFor(state, r.primary), why: whyFor(state, r.primary), honesty_note: state.rec.honesty_note };
+        parts.push(`With that in mind, I'd now point you to **${CATALOGUE[r.primary].name.replace(/ \(.*\)$/, "")}** instead. I've updated your recommendation.`);
+        I.delete("audio");
+        state.rec = out.recommendation; // so a new plan follows it
+        if (state.plan) { out.plan = buildPlan(state); parts.push("Your plan has been updated to match."); }
+      }
+    }
+
+    // Plan creation
+    if ((I.has("plan_yes") || I.has("plan_request")) && !state.plan) {
+      const d = /\b(7|seven)[- ]day|a week\b|one week/.test(t) ? 7 : /\b(21|three weeks?)/.test(t) ? 21 : /\b(28|four weeks|a month)/.test(t) ? 28 : 14;
+      out.plan = buildPlan(state, d);
+      state.plan = out.plan;
+      parts.push(planIntro(state));
+      out.suggestions = ["What if I miss a day?", "Can I do this in the evening?"];
+      out.reply = parts.join("\n\n");
+      return out;
+    }
+    if (I.has("plan_no")) {
+      parts.push("Of course, no pressure at all. The course itself gives you a clear daily rhythm. If you change your mind, just ask and I'll put a plan together.");
+      out.suggestions = ["What will I learn?", "How do I get started?"];
+      out.reply = parts.join("\n\n");
+      return out;
+    }
+
+    // Plan adjustments from new constraints
+    const planChanged = state.plan && !out.plan && (found.time_available || found.time_of_day || I.has("plan_length") || I.has("plan_request"));
+    if (planChanged) {
+      const d = /\b(7|seven)[- ]day|a week\b|one week/.test(t) ? 7 : /\b(21|three weeks?)/.test(t) ? 21 : /\b(28|four weeks|a month)/.test(t) ? 28 : undefined;
+      out.plan = buildPlan(state, d);
+    }
+
+    // Audio preference switches primary if asked directly
+    if (I.has("audio") && state.rec.primary !== "intro-8wk-audio" && /(prefer|rather|instead|only)/.test(t)) {
+      out.recommendation = { primary: "intro-8wk-audio", alternatives: [state.rec.primary], headline: headlineFor(state, "intro-8wk-audio"), why: whyFor(state, "intro-8wk-audio"), honesty_note: null };
+      state.rec = out.recommendation;
+      if (state.plan) out.plan = buildPlan(state);
+      parts.push("Of course. I've switched your recommendation to the **8 Week Introduction to Meditation: Audio**, which you can listen to anywhere." + (state.plan ? " Your plan now follows the audio classes too." : ""));
+      I.delete("audio");
+    } else if (I.has("audio") && !(out.recommendation || state.rec).alternatives.includes("intro-8wk-audio") && state.rec.primary !== "intro-8wk-audio") {
+      out.recommendation = { ...state.rec, alternatives: ["intro-8wk-audio", ...state.rec.alternatives].slice(0, 2) };
+    }
+
+    // Answer questions (priority order, up to two)
+    const ORDER = ["retreat", "suitable", "missed", "short_time", "evening", "morning", "sleep_q", "distracted", "in_person", "price", "dates", "content", "audio", "posture", "religion", "teacher", "one_to_one"];
+    const answered = ORDER.filter(i => I.has(i)).slice(0, 2).map(i => answer(i, state)).filter(Boolean);
+    parts.push(...answered);
+    if (planChanged && out.plan) parts.push(I.has("plan_length") ? `I've reshaped it into a ${out.plan.blocks.length * 7}-day plan.` : "I've updated your plan to match.");
+
+    // Closing
+    if (I.has("next_steps") || (I.has("thanks") && !answered.length)) {
+      state.closing = true; out.closing = true;
+      parts.push(closingLine(state));
+      out.suggestions = ["What if I miss a day?"];
+      out.reply = parts.join("\n\n");
+      return out;
+    }
+
+    if (!answered.length && !planChanged && !out.recommendation) {
+      if (found.goal || found.challenges || found.time_available || found.time_of_day) {
+        parts.push("Thank you, that's useful to know. I've noted it." + (state.plan ? " Your plan still fits, but tell me if anything feels unrealistic and I'll adjust it." : ""));
+      } else {
+        parts.push("That's a good question, and I don't have specific information on it from Real World Meditation, so I'd rather not guess. The team can help directly through Enquire. Is there anything about the course or your plan I can help with?");
+      }
+    }
+    if (!state.plan && !out.plan && !f.offeredPlan) { f.offeredPlan = true; parts.push(PLAN_OFFER); }
+
+    out.suggestions = state.plan || out.plan
+      ? pick([["What if I miss a day?", "How do I get started?"], ["I only have 10 minutes a day", "Is it suitable for beginners?"], ["Can I attend a retreat instead?", "How do I get started?"]], seed)
+      : ["Yes, please create my plan", "What will I learn?"];
+    out.reply = parts.join("\n\n");
+    return out;
+  }
+
+  function respondTracked(raw, state) {
+    state.flags = state.flags || {};
+    const I = intentsOf(norm(raw), raw, state);
+    const out = respond(raw, state);
+    state.flags.done = [...new Set([...(state.flags.done || []), ...I])];
+    if (out.plan || state.plan) state.flags.done.push("plan_yes");
+    // replace fixed suggestion lists with context-aware ones
+    const planNow = out.plan || state.plan, recNow = out.recommendation || state.rec;
+    if (out.wellbeing_flag && !recNow) out.suggestions = [];
+    else if (recNow && !state.flags.askedLocation || (state.flags.askedLocation && state.flags.locationHandled)) {
+      if (recNow) out.suggestions = suggest({ ...state, plan: planNow, rec: recNow }, planNow ? ["missed", "short_time", "retreat", "next_steps", "evening", "suitable"] : ["plan_yes", "content", "suitable", "retreat", "audio"]);
+    }
+    if (out.closing) out.suggestions = [];
+    return out;
+  }
+
+  const api = { respond: respondTracked, buildPlan, extract };
+  if (typeof module !== "undefined" && module.exports) module.exports = api; else root.RWMLocal = api;
+})(typeof window !== "undefined" ? window : globalThis);
+
+</script>
+<script>
+/* Real World Meditation: front-end app.
+   Talks to either the built-in engine (local-engine.js, no network) or an
+   optional LLM through server.js (/api/chat). No third-party dependencies. */
+(function () {
+  const { SITE, CATALOGUE, RESOURCES, WELCOME, STARTERS, PROFILE_LABELS, STEPS } = window.RWM;
+  const CFG = Object.assign({ engine: "auto", apiBase: "" }, window.RWM_CONFIG || {});
+  const $ = s => document.querySelector(s);
+  const logEl = $("#log"), pathEl = $("#path"), input = $("#input"), sendBtn = $("#send"), stopBtn = $("#stop");
+  const STORE = "rwm-guide-standalone-v1";
+  const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let engine = "local", engineLabel = "Built-in engine";
+  let state = load() || fresh();
+  let busy = false, ctl = null, streamText = "";
+
+  function fresh() { return { turns: [{ role: "assistant", content: WELCOME }], profile: {}, rec: null, plan: null, suggestions: [], closing: false, flags: {} }; }
+  function load() { try { const s = JSON.parse(localStorage.getItem(STORE) || "null"); return s && Array.isArray(s.turns) ? s : null; } catch (e) { return null; } }
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  function md(text) {
+    const lines = esc(text).split("\n");
+    let html = "", list = false, para = [];
+    const inline = s => s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*/g, "$1<em>$2</em>");
+    const flush = () => { if (para.length) { html += "<p>" + inline(para.join(" ")) + "</p>"; para = []; } };
+    for (const raw of lines) {
+      const l = raw.trim();
+      if (/^[-•]\s+/.test(l)) { flush(); if (!list) { html += "<ul>"; list = true; } html += "<li>" + inline(l.replace(/^[-•]\s+/, "")) + "</li>"; continue; }
+      if (list) { html += "</ul>"; list = false; }
+      if (!l) { flush(); continue; }
+      para.push(l);
+    }
+    flush(); if (list) html += "</ul>";
+    return html;
+  }
+  function partialReply(raw) {
+    const m = /"reply"\s*:\s*"/.exec(raw); if (!m) return null;
+    let out = "", i = m.index + m[0].length;
+    while (i < raw.length) {
+      const c = raw[i];
+      if (c === "\\") { const n = raw[i + 1]; if (n === undefined) break;
+        if (n === "u") { const h = raw.slice(i + 2, i + 6); if (h.length < 4) break; out += String.fromCharCode(parseInt(h, 16)); i += 6; continue; }
+        out += ({ n: "\n", t: "\t", r: "", b: "", f: "" })[n] ?? n; i += 2; continue; }
+      if (c === '"') break;
+      out += c; i++;
+    }
+    return out;
+  }
+  function parseJSON(raw) {
+    const s = raw.replace(/```(?:json)?/g, "").trim();
+    try { return JSON.parse(s); } catch (e) {}
+    const a = s.indexOf("{"), b = s.lastIndexOf("}");
+    if (a >= 0 && b > a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }
+    return null;
+  }
+
+  /* ------------------------------------------------------------ Rendering */
+  function stage() {
+    if (state.closing) return 7;
+    if (state.plan) return 6;
+    if (state.rec) return 5;
+    if (Object.values(state.profile || {}).some(Boolean)) return 2;
+    if (state.turns.some(t => t.role === "user")) return 1;
+    return 0;
+  }
+  function renderJourney() {
+    const s = stage();
+    $("#journey").innerHTML = STEPS.map((name, i) => {
+      const cls = i < s ? "done" : i === s ? "now" : "";
+      return `<li class="${cls}"><span class="dot">${i < s ? "✓" : i + 1}</span>${esc(name)}</li>`;
+    }).join("");
+    const now = document.querySelector("#journey li.now"), nav = document.querySelector(".journey");
+    if (now && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = now.offsetLeft - 20;
+  }
+  function renderLog() {
+    let h = "";
+    state.turns.forEach(t => {
+      if (t.role === "user") h += `<div class="msg user">${esc(t.content)}</div>`;
+      else if (t.role === "error") h += `<div class="msg err">${esc(t.content)}</div>`;
+      else h += `<div class="msg ai"><div class="who"><i></i>RWM guide</div>${md(t.content)}</div>`;
+    });
+    const userTurns = state.turns.filter(t => t.role === "user").length;
+    if (!userTurns && !busy) h += `<div class="starters"><small>Or try one of these to see how it works:</small>${STARTERS.map(s => `<button class="chip" type="button" data-say="${esc(s)}">${esc(s)}</button>`).join("")}</div>`;
+    if (busy) {
+      if (streamText) h += `<div class="msg ai"><div class="who"><i></i>RWM guide</div>${md(streamText)}</div>`;
+      else h += `<div class="breath" role="status"><div class="ring"></div><span class="lbl" id="breathLbl">Take a breath…</span></div>`;
+    } else if (state.suggestions?.length && userTurns) {
+      h += `<div class="suggest">${state.suggestions.map(s => `<button class="chip" type="button" data-say="${esc(s)}">${esc(s)}</button>`).join("")}</div>`;
+    }
+    logEl.innerHTML = h;
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  const ctaButtons = o => o.ctas.map(c => `<a class="btn ${c.primary ? "primary" : "ghost"}" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.label)}</a>`).join("");
+
+  function renderPath() {
+    let h = `<h2>Your path</h2><p class="lede">As we talk, I'll gather what matters to you and match it to Real World Meditation's courses and classes.</p>`;
+    const prof = Object.entries(state.profile || {}).filter(([k, v]) => v && PROFILE_LABELS[k]);
+    if (!prof.length && !state.rec) h += `<div class="empty">Nothing here yet. Just describe what you're looking for in your own words, and this space will fill in with:<ol><li>What I've understood about your goals</li><li>A recommended RWM course or class, and why</li><li>A simple personalised meditation plan</li><li>Your next step</li></ol></div>`;
+    if (prof.length) h += `<div class="section"><h3>What I've understood</h3><div class="understood">${prof.map(([k, v]) => `<div><small>${PROFILE_LABELS[k]}</small>${esc(v)}</div>`).join("")}</div></div>`;
+
+    const rec = state.rec, o = rec && CATALOGUE[rec.primary];
+    if (o) {
+      h += `<div class="section ${state._newRec ? "new" : ""}"><h3>Recommended for you</h3><article class="card">
+        <div class="rec-head"><div class="rec-kind">${esc(o.kind)}</div><h4>${esc(o.name)}</h4><p>${esc(rec.headline || o.summary)}</p></div>
+        <div class="offers"><b style="font-weight:500">What it offers</b><ul>${o.offers.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+        <dl class="facts">
+          <div><dt>Duration</dt><dd>${esc(o.duration)}</dd></div>
+          <div><dt>Format / location</dt><dd>${esc(o.format)}</dd></div>
+          <div class="wide"><dt>Dates</dt><dd>${esc(o.dates)}</dd></div>
+          <div class="wide"><dt>Price</dt><dd>${esc(o.price)}</dd></div>
+          <div class="wide"><dt>Suitable for</dt><dd>${esc(o.suitable)}</dd></div>
+        </dl>
+        ${rec.why?.length ? `<div class="why"><h5>Why this is recommended</h5><ul>${rec.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul>${rec.honesty_note ? `<p class="honest">${esc(rec.honesty_note)}</p>` : ""}</div>` : ""}
+        <div class="ctas">${ctaButtons(o)}</div></article>`;
+      const alts = (rec.alternatives || []).filter(id => CATALOGUE[id] && id !== rec.primary);
+      if (alts.length) h += `<div class="alts"><h3 style="font-size:14px;font-weight:500;color:var(--muted);margin:14px 0 2px">Also worth a look</h3>${alts.map(id => { const a = CATALOGUE[id]; return `<div class="alt"><div><b>${esc(a.name)}</b><span>${esc(a.format)}. ${esc(a.dates)}</span></div><a href="${esc(a.ctas[0].url)}" target="_blank" rel="noopener">${esc(a.ctas[0].label)}</a></div>`; }).join("")}</div>`;
+      h += `</div>`;
+    }
+    const p = state.plan;
+    if (p) {
+      h += `<div class="section ${state._newPlan ? "new" : ""}"><h3>Your personalised plan</h3><article class="card">
+        <div class="plan-head"><h4>${esc(p.title)}</h4><p>${esc(p.summary)}</p>${p.rhythm?.length ? `<div class="rhythm">${p.rhythm.map(t => `<span>${esc(t)}</span>`).join("")}</div>` : ""}</div>
+        <ol class="weeks">${(p.blocks || []).map((b, i) => `<li class="week"><span class="n">${i + 1}</span><h5>${esc(b.label)}</h5><div class="mins">${esc(b.minutes)}</div><p class="focus">${esc(b.focus)}</p><ul>${(b.practices || []).map(pr => { const r = RESOURCES[pr.resource]; return r ? `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a><em>${esc(pr.how || "")}</em></li>` : (pr.how ? `<li>${esc(pr.how)}</li>` : ""); }).join("")}</ul>${b.goal ? `<div class="goal">Goal: ${esc(b.goal)}</div>` : ""}</li>`).join("")}</ol>
+        ${p.tips?.length ? `<div class="tips"><h5>Tips for keeping it going</h5><ul>${p.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>` : ""}
+        <div class="plan-actions"><button class="btn ghost" id="savePlan" type="button">Save my plan</button><button class="btn ghost" id="printPlan" type="button">Print</button><a class="btn ghost" href="${SITE}/meditations/" target="_blank" rel="noopener">Explore more resources</a></div>
+      </article></div>`;
+    }
+    if (o) {
+      const hasContact = o.ctas.some(c => /contact/.test(c.url));
+      h += `<div class="section"><h3>Your next step</h3><div class="next"><p>Based on your goals, I recommend starting with <b>${esc(o.name)}</b>.</p><div class="ctas" style="padding:0">${ctaButtons(o)}${hasContact ? "" : `<a class="btn ghost" href="${SITE}/contact-us/" target="_blank" rel="noopener">Enquire</a>`}</div><small>${p ? "Your personalised meditation plan is above. Keep asking me anything in the conversation." : "Ask in the conversation and I'll create a simple plan to go alongside it."}</small></div></div>`;
+    }
+    h += `<p class="source">Course, class and resource details are taken from <a href="${SITE}/courses/" target="_blank" rel="noopener">realworldmeditation.org.uk</a>. RWM Education is a Scottish Charitable Incorporated Organisation, SC052234. Practice suggestions are general guidance, not medical advice.</p>`;
+    pathEl.innerHTML = h;
+    const sp = $("#savePlan"); if (sp) sp.onclick = savePlan;
+    const pp = $("#printPlan"); if (pp) pp.onclick = () => window.print();
+    state._newRec = state._newPlan = false;
+  }
+  function renderAll() { renderJourney(); renderLog(); renderPath(); updateControls(); }
+  function updateControls() { sendBtn.disabled = busy || !input.value.trim(); stopBtn.hidden = !busy || engine !== "llm"; }
+
+  let breathTimer = null;
+  function startBreath() {
+    let inhale = true; clearInterval(breathTimer);
+    setTimeout(() => { const el = $("#breathLbl"); if (el) el.textContent = "Breathe in…"; }, 900);
+    breathTimer = setInterval(() => { const el = $("#breathLbl"); if (el) el.textContent = inhale ? "Breathe out…" : "Breathe in…"; inhale = !inhale; }, 4000);
+  }
+
+  /* ------------------------------------------------------------ Engines */
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  async function runLocal(text) {
+    const result = window.RWMLocal.respond(text, state);
+    await sleep(reduceMotion ? 150 : 450 + Math.min(700, text.length * 4));
+    if (!reduceMotion) {           // reveal the reply in real time, word by word
+      const words = result.reply.split(/(\s+)/);
+      const step = Math.max(1, Math.round(words.length / 60));
+      for (let i = 0; i < words.length; i += step) {
+        streamText = words.slice(0, i + step).join("");
+        renderLog();
+        await sleep(18);
+      }
+    }
+    return result;
+  }
+
+  async function runLLM(text) {
+    ctl = new AbortController();
+    const body = { turns: state.turns.filter(t => t.role === "user" || t.role === "assistant").slice(-24), state: { profile: state.profile, rec: state.rec ? { primary: state.rec.primary, alternatives: state.rec.alternatives } : null, plan: !!state.plan } };
+    const res = await fetch(CFG.apiBase + "/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: ctl.signal });
+    if (!res.ok || !res.body) throw new Error("http " + res.status);
+    const reader = res.body.getReader(), dec = new TextDecoder();
+    let raw = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      raw += dec.decode(value, { stream: true });
+      const r = partialReply(raw);
+      if (r && r !== streamText) { streamText = r; renderLog(); }
+    }
+    if (raw.includes("__ERROR__")) throw new Error(raw);
+    const data = parseJSON(raw);
+    if (!data || typeof data.reply !== "string") throw new Error("bad json");
+    return data;
+  }
+
+  async function send(text) {
+    text = text.trim(); if (!text || busy) return;
+    state.turns.push({ role: "user", content: text });
+    state.suggestions = [];
+    input.value = ""; autosize();
+    busy = true; streamText = ""; renderAll(); startBreath();
+    try {
+      let data;
+      if (engine === "llm") {
+        try { data = await runLLM(text); }
+        catch (e) {
+          if (e.name === "AbortError") { if (streamText) state.turns.push({ role: "assistant", content: streamText }); return; }
+          console.warn("LLM unavailable, using built-in engine:", e);
+          streamText = "";
+          data = await runLocal(text);   // the demo never breaks
+        }
+      } else data = await runLocal(text);
+      applyResult(data);
+    } catch (e) {
+      console.error(e);
+      state.turns.push({ role: "error", content: "Something went wrong there. Please send your message again." });
+    } finally {
+      busy = false; streamText = ""; clearInterval(breathTimer); ctl = null; save(); renderAll(); input.focus();
+    }
+  }
+
+  function applyResult(d) {
+    state.turns.push({ role: "assistant", content: String(d.reply || "").trim() || "I'm here. Tell me a little more?" });
+    if (d.profile && typeof d.profile === "object") {
+      const p = {};
+      for (const k of Object.keys(PROFILE_LABELS)) { const v = d.profile[k]; if (v && typeof v === "string" && v.toLowerCase() !== "null") p[k] = v; else if (state.profile?.[k]) p[k] = state.profile[k]; }
+      state.profile = p;
+    }
+    const r = d.recommendation;
+    if (r && CATALOGUE[r.primary]) {
+      const changed = !state.rec || state.rec.primary !== r.primary || JSON.stringify(state.rec.alternatives) !== JSON.stringify(r.alternatives);
+      state.rec = { primary: r.primary, alternatives: Array.isArray(r.alternatives) ? r.alternatives.filter(a => CATALOGUE[a]).slice(0, 2) : [], headline: r.headline || "", why: Array.isArray(r.why) ? r.why.slice(0, 5) : [], honesty_note: r.honesty_note || null };
+      state._newRec = changed; if (changed) flagPath();
+    }
+    const pl = d.plan;
+    if (pl && Array.isArray(pl.blocks) && pl.blocks.length) {
+      state.plan = { title: pl.title || "Your meditation plan", summary: pl.summary || "", rhythm: Array.isArray(pl.rhythm) ? pl.rhythm.slice(0, 4) : [], blocks: pl.blocks.slice(0, 4), tips: Array.isArray(pl.tips) ? pl.tips.slice(0, 5) : [] };
+      state._newPlan = true; flagPath();
+    }
+    state.suggestions = Array.isArray(d.suggestions) ? d.suggestions.filter(s => typeof s === "string").slice(0, 2) : [];
+    if (d.closing || (state.plan && state.turns.filter(t => t.role === "user").length >= 5)) state.closing = true;
+  }
+
+  /* ------------------------------------------------------------ UI wiring */
+  function setView(v) {
+    $("#main").dataset.view = v;
+    $("#tab-chat").setAttribute("aria-selected", v === "chat");
+    $("#tab-path").setAttribute("aria-selected", v === "path");
+    if (v === "path") $("#badge").classList.remove("on");
+  }
+  function flagPath() { if ($("#main").dataset.view === "chat") $("#badge").classList.add("on"); }
+  $("#tab-chat").onclick = () => setView("chat");
+  $("#tab-path").onclick = () => setView("path");
+
+  function savePlan() {
+    const p = state.plan, o = state.rec && CATALOGUE[state.rec.primary]; if (!p) return;
+    let t = `${p.title}\n${"=".repeat(p.title.length)}\n\n${p.summary}\n\n`;
+    if (p.rhythm?.length) t += `Rhythm: ${p.rhythm.join(", ")}\n\n`;
+    p.blocks.forEach(b => {
+      t += `${b.label}\n${b.minutes}\nFocus: ${b.focus}\n`;
+      (b.practices || []).forEach(pr => { const r = RESOURCES[pr.resource]; t += `  - ${r ? r.title + " (" + r.url + ")" : ""}${pr.how ? (r ? ": " : "") + pr.how : ""}\n`; });
+      if (b.goal) t += `Goal: ${b.goal}\n`; t += "\n";
+    });
+    if (p.tips?.length) { t += "Tips\n"; p.tips.forEach(x => t += `  - ${x}\n`); t += "\n"; }
+    if (o) t += `Recommended: ${o.name}\n${o.ctas[0].url}\n\n`;
+    t += "Real World Meditation · realworldmeditation.org.uk\nGeneral guidance only, not medical advice.\n";
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([t], { type: "text/plain" }));
+    a.download = "rwm-meditation-plan.txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
+
+  function autosize() { input.style.height = "auto"; input.style.height = Math.min(input.scrollHeight, 160) + "px"; updateControls(); }
+  input.addEventListener("input", autosize);
+  input.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input.value); } });
+  $("#form").addEventListener("submit", e => { e.preventDefault(); send(input.value); });
+  stopBtn.onclick = () => ctl?.abort();
+  logEl.addEventListener("click", e => { const b = e.target.closest("[data-say]"); if (b) send(b.dataset.say); });
+  $("#restart").onclick = () => { if (busy) ctl?.abort(); state = fresh(); save(); setView("chat"); renderAll(); input.focus(); };
+
+  function setBadge() { const el = $("#engine"); if (el) { el.textContent = engineLabel; el.title = engine === "llm" ? "Responses generated by the configured LLM, grounded in the RWM catalogue" : "Responses generated by the built-in engine in your browser. No external AI service"; } }
+
+  renderAll(); setBadge();
+
+  // Engine detection: use the LLM only if server.js reports one is configured.
+  (async () => {
+    if (CFG.engine === "local" || location.protocol === "file:") return;
+    try {
+      const r = await fetch(CFG.apiBase + "/api/health", { cache: "no-store" });
+      const j = await r.json();
+      if (j && j.llm) { engine = "llm"; engineLabel = j.label || "LLM engine"; setBadge(); updateControls(); }
+    } catch (e) { /* no server: stay on the built-in engine */ }
+  })();
+})();
+
+</script>
+</body>
+</html>
